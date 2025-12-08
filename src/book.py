@@ -8,6 +8,9 @@ class Book():
         self.genre = genre
         self.isbn = isbn
 
+    def __str__(self) -> str:
+        return f'"{self.title}" {self.author}'
+
 
 class BookCollection():
     def __init__(self):
@@ -24,10 +27,10 @@ class BookCollection():
     def __len__(self):
         return len(self.books)
 
-    def add_book(self, book: Book):
+    def append(self, book: Book):
         self.books.append(book)
 
-    def add_books(self, books: list[Book]):
+    def extend(self, books: list[Book]):
         self.books.extend(books)
 
     def is_book_exist(self, book: Book):
