@@ -28,6 +28,10 @@ class BookCollection():
         return len(self.books)
 
 
+    def count(self, book) -> int:
+        return self.books.count(book)
+
+
     def append(self, book: Book) -> None:
         self.books.append(book)
 

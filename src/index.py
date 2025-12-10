@@ -6,12 +6,12 @@ from typing import (
     ItemsView,
     ValuesView,
     Dict,
-    Tuple,
-    Union
+    Union,
+    Set
 )
 
 _KT = TypeVar("_KT")
-_VT = Union[Book, set[Book]]
+_VT = Set[Book]
 
 
 class IndexDict[_KT]:
@@ -55,12 +55,10 @@ class IndexDict[_KT]:
         return self.dict.items()
 
 
-    def pop(self, key: _KT) -> _VT:
-        return self.dict.pop(key)
-
-
-    def popitem(self) -> Tuple[_KT, _VT]:
-        return self.dict.popitem()
+    def remove_book(self, key: _KT, book: Book) -> None:
+        self.dict[key].remove(book)
+        if not self.dict[key]:
+            self.dict.pop(key)
 
 
     def clear(self) -> None:
