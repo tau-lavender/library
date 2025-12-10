@@ -15,7 +15,7 @@ class Book():
 
 
     def _get_temp_str(self):
-        return str(self.isbn) + str(self.title) + str(self.author) + str(self.year) + str(self.genre)
+        return "".join([str(x).strip().lower() for x in [self.isbn, self.title, self.author, self.year, self.genre]])
 
 
     def hash(self):
@@ -26,6 +26,10 @@ class Book():
         if not isinstance(value, Book):
             return False
         return self._get_temp_str() == value._get_temp_str()
+
+
+    def __ne__(self, value: object) -> bool:
+        return not self == value
 
 
     def __str__(self) -> str:
