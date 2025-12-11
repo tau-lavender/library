@@ -1,6 +1,7 @@
 from src.book import Book
 from src.book_collection import BookCollection
 from src.index import IsbnIndexDict, AuthorIndexDict, YearIndexDict
+# from typing import List
 
 
 class Library():
@@ -53,3 +54,27 @@ class Library():
 
         if verbose:
             print(f"Все экземпляры книги {str(book)} убраны")
+
+
+    def give_out_book(self, book: Book, verbose: bool = True) -> None:
+        if book not in self.book_collection_available:
+            if verbose:
+                print(f"Книги {str(book)} нет в библиотеке")
+            return
+
+        self.remove_book_from_availiable(book)
+        self.book_collection_on_hand.append(book)
+
+
+    def get_book(self, book: Book, verbose:bool = True) -> None:
+        if book not in self.book_collection_on_hand:
+            if verbose:
+                print(f"Книгу {str(book)} не забирали, или она была удалена из коллекции. Книгу нельзя принять")
+            return
+        else:
+            self.add_book_in_availiable(book)
+            self.book_collection_on_hand.remove(book)
+
+
+    # def search(self, isbn: int | None, author: str | None, year: int | None) -> List[Book]:
+    #     ...
