@@ -42,9 +42,12 @@ class IndexDict[_KT]:
         return self.dict[key]
 
 
-    def __setitem__(self, key: _KT, item: _VT):
+    def __setitem__(self, key: _KT, item: _VT | Book):
         if key not in self.keys():
-            self.dict[key] = BookCollectionUnique(data = list(item))
+            if isinstance(item, Book):
+                self.dict[key] = BookCollectionUnique(data = [item])
+            else:
+                self.dict[key] = BookCollectionUnique(data = list(item))
 
 
     def keys(self) -> KeysView[_KT]:

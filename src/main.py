@@ -7,7 +7,11 @@ def main() -> None:
     :return: None
     """
     seed = input("Введите seed (ENTER для случайного): ")
-    steps = int(input("Введите кол-во шагов (ENTER для 20): "))
+    str_steps:str = input("Введите кол-во шагов (ENTER для 20): ")
+    if str_steps == "":
+        steps = 20
+    else:
+        steps = int(str_steps)
     run_simulation(steps=steps, seed=seed)
 
 
