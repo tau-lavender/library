@@ -1,7 +1,6 @@
 from src.book import Book
 from src.book_collection import BookCollection, BookCollectionUnique
 from src.index import IsbnIndexDict, AuthorIndexDict, YearIndexDict
-from typing import List
 
 
 class Library():
@@ -62,8 +61,10 @@ class Library():
                 print(f"Книги {str(book)} нет в библиотеке")
             return
 
-        self.remove_book_from_availiable(book)
+        self.remove_book_from_availiable(book, verbose=False)
         self.book_collection_on_hand.append(book)
+        if verbose:
+            print(f"Выдана книга {book}")
 
 
     def get_book(self, book: Book, verbose:bool = True) -> None:
@@ -72,8 +73,10 @@ class Library():
                 print(f"Книгу {str(book)} не забирали, или она была удалена из коллекции. Книгу нельзя принять")
             return
         else:
-            self.add_book_in_availiable(book)
+            self.add_book_in_availiable(book, verbose=False)
             self.book_collection_on_hand.remove(book)
+            if verbose:
+                print(f"Сдана книга {book}")
 
 
     def search(self,
@@ -81,10 +84,38 @@ class Library():
                author: str | None = None,
                year: int | None = None,
                verbose: bool = True
-               ) -> List[Book] | None:
+               ) -> BookCollectionUnique:
+        ans: BookCollectionUnique = BookCollectionUnique()
+        temp_ans: BookCollectionUnique = BookCollectionUnique()
         if isbn is None and author is None and year is None:
             if verbose:
                 print("Не указанны параметры для поиска")
-        ans: List[Book] = []
+            return ans
+
+        if isbn is not None:
+            if isbn not in self.isbn_dict.keys():
+                if verbose:
+                    print(f"Не найдено книг с isbn: {isbn}")
+                return ans
+            temp_ans.extend(self.isbn_dict[isbn])
+
+        if author is not None:
+            if author not in self.author_dict.keys():
+                if verbose:
+                    print(f"Не найдено книг от автора: {author}")
+                return ans
+            temp_ans.extend(self.author_dict[author])
+        if year is not None:
+            if year not in self.year_dict.keys():
+                if verbose:
+                    print(f"Не найдено книг с годом издания: {year}")
+                return ans
+            temp_ans.extend(self.year_dict[year])
+
+        for book in temp_ans:
+            if book.isbn == isbn or isbn is None:
+                if book.author == author or author is None:
+                    if book.year == year or year is None:
+                        ans.append(book)
 
         return ans

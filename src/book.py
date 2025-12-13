@@ -3,9 +3,9 @@ class Book():
     def __init__(self,
                 isbn: int,
                 title: str,
-                author: str | None = None,
-                year: int | None = None,
-                genre: str | None = None
+                author: str,
+                year: int,
+                genre: str
                 ) -> None:
         self.isbn = isbn
         self.title = title

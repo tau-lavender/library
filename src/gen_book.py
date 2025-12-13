@@ -1,4 +1,5 @@
 import random
+from typing import Dict
 from src.book import Book
 
 # список рандомных названий взятых из англ вики
@@ -37,11 +38,18 @@ genres = [
     "hilosophy"
 ]
 
-def generate_book():
+def generate_book() -> Book:
     return Book(
         isbn=random.randint(900_00000_00000, 999_99999_99999),
         title=random.choice(titles),
-        author=random.choices([random.choice(authors), None], cum_weights=[10, 1])[0],
-        year=random.choices([random.randint(1800, 2025), None], cum_weights=[10, 1])[0],
-        genre=random.choices([random.choice(genres), None], cum_weights=[10, 1])[0],
+        author=random.choice(authors),
+        year=random.randint(1800, 2025),
+        genre=random.choice(genres)
     )
+
+def generate_random_search_prompt() -> Dict[str, int | str | None]:
+    return {
+        "isbn": random.choice([random.randint(900_00000_00000, 999_99999_99999), None]),
+        "author": random.choice([random.choice(authors), None]),
+        "year": random.choice([random.randint(1800, 2025), None])
+    }

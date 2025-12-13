@@ -49,7 +49,7 @@ class BookCollection():
         self.books.append(book)
 
 
-    def extend(self, books: List[Book]) -> None:
+    def extend(self, books: List[Book] | BookCollection | BookCollectionUnique) -> None:
         self.books.extend(books)
 
 
@@ -63,11 +63,14 @@ class BookCollectionUnique(BookCollection):
     """
     Только уникальные книги
     """
+    def __init__(self, data: List[Book] | None = None) -> None:
+        super().__init__(list(set(data)) if data is not None else [])
+
 
     def append(self, book: Book) -> None:
         if book not in self:
             self.books.append(book)
 
-    def extend(self, books: List[Book]) -> None:
+    def extend(self, books: List[Book] | BookCollection | BookCollectionUnique) -> None:
         for book in books:
             self.append(book)
