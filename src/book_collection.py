@@ -20,11 +20,11 @@ class BookCollection():
 
 
     @classmethod
-    def new_collection_from_list(cls, data: List[Book]) -> BookCollection:
+    def new_collection_from_list(cls, data: List[Book]) -> BookCollection | BookCollectionUnique:
         return cls(data = data)
 
 
-    def __getitem__(self, index: int | slice) -> Book | BookCollection:
+    def __getitem__(self, index: int | slice) -> Book | BookCollection | BookCollectionUnique:
         if type(index) not in (int, slice):
             raise IndexError(f"Wrong index ({index}) type {type(index)}")
         if isinstance(index, int):
@@ -64,7 +64,9 @@ class BookCollectionUnique(BookCollection):
     Только уникальные книги
     """
     def __init__(self, data: List[Book] | None = None) -> None:
-        super().__init__(list(set(data)) if data is not None else [])
+        super().__init__([])
+        if data is not None:
+            self.extend(data)
 
 
     def append(self, book: Book) -> None:
