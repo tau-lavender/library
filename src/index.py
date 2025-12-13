@@ -1,4 +1,5 @@
 from src.book import Book
+from src.book_collection import BookCollectionUnique
 from typing import (
     Iterator,
     TypeVar,
@@ -7,11 +8,10 @@ from typing import (
     ValuesView,
     Dict,
     Union,
-    Set
 )
 
 _KT = TypeVar("_KT")
-_VT = Set[Book]
+_VT = BookCollectionUnique
 
 
 class IndexDict[_KT]:
@@ -40,7 +40,8 @@ class IndexDict[_KT]:
 
 
     def __setitem__(self, key: _KT, item: _VT):
-        self.dict[key] = item
+        if key not in self.keys():
+            self.dict[key] = BookCollectionUnique(data = list(item))
 
 
     def keys(self) -> KeysView[_KT]:

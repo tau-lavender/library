@@ -1,7 +1,7 @@
 from src.book import Book
-from src.book_collection import BookCollection
+from src.book_collection import BookCollection, BookCollectionUnique
 from src.index import IsbnIndexDict, AuthorIndexDict, YearIndexDict
-# from typing import List
+from typing import List
 
 
 class Library():
@@ -17,15 +17,16 @@ class Library():
         self.book_collection_available.append(book)
 
         if book.isbn not in self.isbn_dict.keys():
-            self.isbn_dict[book.isbn] = set([book])
+            self.isbn_dict[book.isbn] = BookCollectionUnique()
+        self.author_dict[book.isbn].append(book)
 
         if book.author not in self.author_dict.keys():
-            self.author_dict[book.author] = set()
-        self.author_dict[book.author].add(book)
+            self.author_dict[book.author] = BookCollectionUnique()
+        self.author_dict[book.author].append(book)
 
         if book.year not in self.year_dict.keys():
-            self.year_dict[book.year] = set()
-        self.year_dict[book.year].add(book)
+            self.year_dict[book.year] = BookCollectionUnique()
+        self.year_dict[book.year].append(book)
 
         if verbose:
             print(f"Добавлена книга {str(book)}")
@@ -76,5 +77,15 @@ class Library():
             self.book_collection_on_hand.remove(book)
 
 
-    # def search(self, isbn: int | None, author: str | None, year: int | None) -> List[Book]:
-    #     ...
+    def search(self,
+               isbn: int | None = None,
+               author: str | None = None,
+               year: int | None = None,
+               verbose: bool = True
+               ) -> List[Book] | None:
+        if isbn is None and author is None and year is None:
+            if verbose:
+                print("Не указанны параметры для поиска")
+        ans: List[Book] = []
+
+        return ans
