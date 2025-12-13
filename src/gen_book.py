@@ -3,6 +3,7 @@ from typing import Dict
 from src.book import Book
 
 # список рандомных названий взятых из англ вики
+# "красивые" данные
 titles = [
     "Neuromancer",
     "1984",
@@ -39,6 +40,10 @@ genres = [
 ]
 
 def generate_book() -> Book:
+    """
+    Генерирует рандомные данные для книги, чтобы было красиво
+    :return: объект класса Book
+    """
     return Book(
         isbn=random.randint(900_00000_00000, 999_99999_99999),
         title=random.choice(titles),
@@ -48,6 +53,10 @@ def generate_book() -> Book:
     )
 
 def generate_random_search_prompt() -> Dict[str, int | str | None]:
+    """
+    Генерирует случайный запрос для поиска из красивых данных
+    :return: словарь с данными для запроса
+    """
     return {
         "isbn": random.choice([random.randint(900_00000_00000, 999_99999_99999), None]),
         "author": random.choice([random.choice(authors), None]),

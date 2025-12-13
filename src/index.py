@@ -15,6 +15,9 @@ _VT = BookCollectionUnique
 
 
 class IndexDict[_KT]:
+    """
+    Класс для индксации
+    """
     def __init__(self) -> None:
         self.dict: Dict[_KT, _VT] = dict()
 
@@ -67,18 +70,27 @@ class IndexDict[_KT]:
 
 
 class IsbnIndexDict(IndexDict):
+    """
+    Для индексации по ISBN
+    """
     def __init__(self):
         _KT = int
         super().__init__()
 
 
 class AuthorIndexDict(IndexDict):
+    """
+    Для индексации по автору
+    """
     def __init__(self):
         _KT = Union[str, None]
         super().__init__()
 
 
 class YearIndexDict(IndexDict):
+    """
+    Для индексации по году издания
+    """
     def __init__(self):
         _KT = Union[int, None]
         super().__init__()

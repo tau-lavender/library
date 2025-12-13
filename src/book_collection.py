@@ -6,6 +6,9 @@ from src.book import Book
 
 
 class BookCollection():
+    """
+    Хранит книги (объекты класса Book)
+    """
     def __init__(self, data: List[Book] | None = None) -> None:
         self.books: List[Book] = [] if data is None else data.copy()
 

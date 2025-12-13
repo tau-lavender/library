@@ -8,7 +8,12 @@ from typing import Any
 
 
 
-def add_new_books(library):
+def add_new_books(library) -> None:
+    """
+    Ивент
+    Добавляет книги в библиотеку
+    :return: None
+    """
     print("> Event: Добавление книг в доступные")
     print("...")
     book = generate_book()
@@ -20,7 +25,12 @@ def add_new_books(library):
     print(library.book_collection_available)
 
 
-def remove_random_book(library):
+def remove_random_book(library) -> None:
+    """
+    Ивент
+    Убирает книги из библиотеки
+    :return: None
+    """
     print("> Event: Удаление случайной книги/книг из доступных")
     print("...")
     if len(library.book_collection_available) == 0:
@@ -38,7 +48,13 @@ def remove_random_book(library):
     print(library.book_collection_available)
 
 
-def give_out_book_wo_search(library):
+def give_out_book_wo_search(library) -> None:
+    """
+    Ивент
+    Пользователь просит конкретную книгу
+    Может книга может как существовать, так и нет
+    :return: None
+    """
     print("> Event: Пользователь получает книгу без поиска ", end = "")
     book_exist = True
     if random.random() > 0.5:
@@ -61,7 +77,13 @@ def give_out_book_wo_search(library):
     library.give_out_book(random_book)
 
 
-def search_for_book_and_give_it(library):
+def search_for_book_and_give_it(library) -> None:
+    """
+    Ивент
+    Пользователь ищет книгу по критениям и берёт её если есть
+    Может книга может как существовать, так и нет
+    :return: None
+    """
     print("> Event: Пользователь ищет книгу ", end="")
     book_exist = True
     if random.random() > 0.5:
@@ -81,6 +103,7 @@ def search_for_book_and_give_it(library):
         i = random.randint(0, len(library.book_collection_available) - 1)
         random_book_data = library.book_collection_available[i]
 
+        # Исключает возможность вызова пустого поиска
         while isbn is None and author is None and year is None:
             if random.random() > 0.5:
                 isbn = random_book_data.isbn
@@ -118,7 +141,13 @@ def search_for_book_and_give_it(library):
     library.give_out_book(user_want_book)
 
 
-def get_book(library):
+def get_book(library) -> None:
+    """
+    Ивент
+    Пользователь возвращает книгу
+    Может быть такое что пользователь принёс книгу которую не брали (например перепутал библиотеку)
+    :return: None
+    """
     print("> Event: Пользователь сдаёт книгу ", end="")
     book_exist = True
     if random.random() > 0.5:
@@ -140,7 +169,7 @@ def get_book(library):
     library.get_book(book)
 
 
-
+# словарь [ивент: счётчик вызовов]
 events = {
     add_new_books: 0,
     remove_random_book: 0,
@@ -151,6 +180,12 @@ events = {
 
 
 def run_simulation(steps: int = 20, seed: Any = None) -> None:
+    """
+    Запускает симуляцию
+    :steps: Кол-во шагов
+    :seed: Сид для повторяемости
+    :return: None
+    """
     random.seed(seed)
     library = Library()
     print("\n" * 100)

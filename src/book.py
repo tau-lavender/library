@@ -1,5 +1,8 @@
 
 class Book():
+    """
+    Хранит информацию о книге
+    """
     def __init__(self,
                 isbn: int,
                 title: str,

@@ -4,6 +4,15 @@ from src.index import IsbnIndexDict, AuthorIndexDict, YearIndexDict
 
 
 class Library():
+    """
+    Класс библиотеки
+    Хранит:
+    Коллекцию книг в библиотеке,
+    Коллекцию выданных книг,
+    Индексацию по ISBN, Author, Year
+    Методы влияют на все коллеции
+    """
+
     def __init__(self) -> None:
         self.book_collection_available = BookCollection()
         self.book_collection_on_hand = BookCollection()
@@ -13,6 +22,12 @@ class Library():
 
 
     def add_book_in_availiable(self, book: Book, verbose: bool = True) -> None:
+        """
+        Добавляет книгу в доступные и создаёт/добавляет в коллекции в индексации
+        :book: объект класса Book для добавления
+        :verbose: True для вывода информации в консоль, False для отключения
+        :return: None
+        """
         self.book_collection_available.append(book)
         if book.isbn not in self.isbn_dict.keys():
             self.isbn_dict[book.isbn] = BookCollectionUnique()
@@ -31,6 +46,12 @@ class Library():
 
 
     def remove_book_from_availiable(self, book: Book, verbose: bool = True) -> None:
+        """
+        Убирирает книгу из доступных и убирет из коллекции в индексации
+        :book: объект класса Book для удаления
+        :verbose: True для вывода информации в консоль, False для отключения
+        :return: None
+        """
         if book not in self.book_collection_available:
             if verbose:
                 print(f"Книги {str(book)} нет в библиотеке")
@@ -48,6 +69,12 @@ class Library():
 
 
     def remove_book_and_copes_from_availiable(self, book: Book, verbose: bool = True) -> None:
+        """
+        Удаляет все одинаковые книги book через remove_book_from_availiable
+        :book: объект класса Book для удаления
+        :verbose: True для вывода информации в консоль, False для отключения
+        :return: None
+        """
         while book in self.book_collection_available:
             self.remove_book_from_availiable(book, verbose=False)
 
@@ -56,6 +83,13 @@ class Library():
 
 
     def give_out_book(self, book: Book, verbose: bool = True) -> None:
+        """
+        Выдаёт book
+        Удаляет из доступных, добаляет в "на руках"
+        :book: объект класса Book для dslfxb
+        :verbose: True для вывода информации в консоль, False для отключения
+        :return: None
+        """
         if book not in self.book_collection_available:
             if verbose:
                 print(f"Книги {str(book)} нет в библиотеке")
@@ -68,6 +102,12 @@ class Library():
 
 
     def get_book(self, book: Book, verbose:bool = True) -> None:
+        """
+        Возвращает book в коллецию, удаляет из "на руках"
+        :book: объект класса Book для djpdhfotybz
+        :verbose: True для вывода информации в консоль, False для отключения
+        :return: None
+        """
         if book not in self.book_collection_on_hand:
             if verbose:
                 print(f"Книгу {str(book)} не забирали, или она была удалена из коллекции. Книгу нельзя принять")
@@ -85,6 +125,14 @@ class Library():
                year: int | None = None,
                verbose: bool = True
                ) -> BookCollectionUnique:
+        """
+        Поиск по индексам
+        :isbn: данные для поиска, если None не влияет
+        :author: данные для поиска, если None не влияет
+        :year: данные для поиска, если None не влияет
+        :verbose: True для вывода информации в консоль, False для отключения
+        :return: None
+        """
         ans: BookCollectionUnique = BookCollectionUnique()
         temp_ans: BookCollectionUnique = BookCollectionUnique()
         if isbn is None and author is None and year is None:
