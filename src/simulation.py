@@ -6,16 +6,6 @@ from src.gen_book import generate_book, generate_random_search_prompt
 from typing import Any
 
 
-"""
-TODO
-добавление новой ĸниги,                                    X
-удаление случайной ĸниги,                                  X
-получение книги,                                           X
-поиск + получение книги                                    X
-попытĸа получить ĸнигу, ĸоторой нет                        X
-возврат книги                                              X
-возврат книги которую не брали                             X
-"""
 
 
 def add_new_books(library):

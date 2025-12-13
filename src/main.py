@@ -3,7 +3,8 @@ from src.simulation import run_simulation
 
 def main() -> None:
     seed = input("Введите seed (ENTER для случайного): ")
-    run_simulation(seed=seed)
+    steps = int(input("Введите кол-во шагов (ENTER для 20): "))
+    run_simulation(steps=steps, seed=seed)
 
 
 if __name__ == "__main__":
