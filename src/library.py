@@ -15,10 +15,9 @@ class Library():
 
     def add_book_in_availiable(self, book: Book, verbose: bool = True) -> None:
         self.book_collection_available.append(book)
-
         if book.isbn not in self.isbn_dict.keys():
             self.isbn_dict[book.isbn] = BookCollectionUnique()
-        self.author_dict[book.isbn].append(book)
+        self.isbn_dict[book.isbn].append(book)
 
         if book.author not in self.author_dict.keys():
             self.author_dict[book.author] = BookCollectionUnique()
@@ -42,8 +41,8 @@ class Library():
 
         if book not in self.book_collection_available:
             self.isbn_dict.remove_book(book.isbn, book)
-            self.author_dict.remove_book(book.isbn, book)
-            self.isbn_dict.remove_book(book.isbn, book)
+            self.author_dict.remove_book(book.author, book)
+            self.year_dict.remove_book(book.year, book)
 
         if verbose:
             print(f"Экземпляр книги {str(book)} убран")

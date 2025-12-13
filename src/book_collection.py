@@ -9,6 +9,11 @@ class BookCollection():
     def __init__(self, data: List[Book] | None = None) -> None:
         self.books: List[Book] = [] if data is None else data.copy()
 
+    def __str__(self) -> str:
+        if len(self) == 0:
+            return "=В коллекции нет книг="
+        return "=Начало коллекции=\n" + "\n".join([str(x) for x in self.books]) + "\n=Конец коллекции="
+
 
     def __contains__(self, book: Book) -> bool:
         return book in self.books

@@ -20,7 +20,7 @@ class IndexDict[_KT]:
 
 
     def __str__(self) -> str:
-        return str(self.dict)
+        return " ".join([f"{str(x)}: {str(y)}" for x, y in self.dict]) # type: ignore
 
 
     def __repr__(self) -> str:
@@ -69,16 +69,16 @@ class IndexDict[_KT]:
 class IsbnIndexDict(IndexDict):
     def __init__(self):
         _KT = int
-        super.__init__()
+        super().__init__()
 
 
 class AuthorIndexDict(IndexDict):
     def __init__(self):
         _KT = Union[str, None]
-        super.__init__()
+        super().__init__()
 
 
 class YearIndexDict(IndexDict):
     def __init__(self):
         _KT = Union[int, None]
-        super.__init__()
+        super().__init__()
